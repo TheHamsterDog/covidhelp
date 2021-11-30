@@ -70,6 +70,7 @@ function App(props: any) {
           {/* <Route exact path='/:id'><Redirecter></Redirecter></Route> */}
           <Route><F04></F04></Route>
         </Switch>
+        
         <div className="bottom-container">
           <a className="footer-link" href="https://www.linkedin.com/in/shreshth-verma-17ab39213/">LinkedIn</a>
           <a className="footer-link" href="https://twitter.com/VermaShreshth">Twitter</a>
@@ -110,11 +111,11 @@ function App(props: any) {
             <Route><F04></F04></Route>
           </Switch>
           <div className="bottom-container">
-            <a className="footer-link" href="https://www.linkedin.com/">LinkedIn</a>
-            <a className="footer-link" href="https://twitter.com/">Twitter</a>
-            <a className="footer-link" href="https://www.shreshth.me/">Website</a>
-            <p>© 2020 Shreshth Verma.</p>
-          </div>
+          <a className="footer-link" href="https://www.linkedin.com/in/shreshth-verma-17ab39213/">LinkedIn</a>
+          <a className="footer-link" href="https://twitter.com/VermaShreshth">Twitter</a>
+          <a className="footer-link" href="https://www.shreshthverma.me/">Website</a>
+          <p>© 2020 Shreshth Verma.</p>
+        </div>
         </Router>
       </div>
     );
