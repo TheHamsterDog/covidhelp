@@ -2,7 +2,7 @@ const Token= (token)=>{return(`<html ><style type="text/css">	.button {  backgro
 <center>
     <img src="https://cdn.pixabay.com/photo/2020/05/15/18/46/corona-5174671__340.jpg">
     <h1>Click on the Button to reset your password</h1>
-    <a color='white' bg-color='#4CAF50' href=${'http://localhost:5000/api/auth/forgot/'+token}>
+    <a color='white' bg-color='#4CAF50' href=${'https://covidhelp.shreshthverma.me/api/auth/forgot/'+token}>
 <button class='button' bg-color='#4CAF50' width='100%'>Click Here </button></a>
 </center>
 </body></html>`)}
