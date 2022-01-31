@@ -5,6 +5,7 @@ import axios from 'axios';
 import { connect, Provider } from 'react-redux';
 import { login } from '../actions/auth'
 import { Link } from 'react-router-dom';
+import Container from './reusables/Container';
 const mapStateToProps = (state: any) => {
   return ({ state: state })
 }
@@ -37,10 +38,7 @@ const Login = (props: any) => {
   };
 
   return (<div>
-    <div className='landing-top'>
-
-      <div className='login-title'> <h1>Login!</h1> </div>
-    </div>
+    <Container> login</Container>
     <div className='landing-description'>
       <div className='login-form'>
         <Form
@@ -73,12 +71,12 @@ const Login = (props: any) => {
             <Form.Item {...tailLayout}>
               <Button type="primary" htmlType="submit" block>
                 Submit
-        </Button>
-        <Link to='/forgot-password'>ForgotPassword?</Link>
+              </Button>
+              <Link to='/forgot-password'>ForgotPassword?</Link>
             </Form.Item>
           </div>
         </Form>
-        
+
       </div></div>  </div>
   );
 };

@@ -17,6 +17,10 @@ const app: any = express();
 const PORT = process.env.PORT || process.env.port;
 //Handling routes
 app.use(express.json({ extended: false, limit:'50000kb' }));
+//starting up the server on the port specified
+app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`);
+})
 
 app.use('/api/user', user);
 app.use('/api/auth', auth);
@@ -28,11 +32,7 @@ app.use('/api/donations', donations);
 
 app.use(express.static(path.join(__dirname, 'build')));
 //setting up express and mongoDB
-app.get('*', (res, req) =>{
+app.get('*', (req, res) =>{
     return res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 db();
-//starting up the server on the port specified
-app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`);
-})

@@ -144,7 +144,7 @@ router.put('/', [auth, check('id', 'Can\'t find post').not().isEmpty(), check('t
         return res.status(500).json({ msg: 'server error' });
     }
 });
-router.get('/search/:text', async (req, res) => {
+router.get('/search/:text/:from', async (req, res) => {
 
     try {
 
@@ -152,7 +152,8 @@ router.get('/search/:text', async (req, res) => {
             $text: {
                 $search: req.params.text
             }
-        });
+        }).skip(Number(req.params.from));
+        console.log(req.params.text)
         console.log(posts);
         if (posts.length < 1) {
             return res.status(400).json({ msg: 'None of the posts match your query' });

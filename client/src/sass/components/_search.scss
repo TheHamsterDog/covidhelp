@@ -1,0 +1,27 @@
+.search {
+    background-color: $colorSecondaryBackground;
+    max-width: 70rem;
+    width: 80vw;
+    border-radius: 2rem;
+    padding: 6rem;
+    overflow: hidden;
+
+    &-text {
+
+        color: $colorSecondary;
+        font-size: 5rem;
+        text-align: center;
+    }
+
+    &-input {
+        overflow: hidden;
+        border: none;
+        outline: none;
+        font-size: 2rem;
+        border-radius: 2rem;
+        padding: 1.5rem;
+        width: 100%;
+    }
+
+    margin: 3rem auto;
+}

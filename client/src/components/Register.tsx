@@ -1,18 +1,19 @@
 import { Form, Input, Button, Checkbox } from 'antd';
 import React from 'react';
 import Navbar from './reusables/Navbar'
-import {Helmet} from 'react-helmet';
-import {connect, Provider} from 'react-redux';
+import { Helmet } from 'react-helmet';
+import { connect, Provider } from 'react-redux';
 import AvatarSelector from './AvatarSelector';
-import {register} from '../actions/auth'
-const mapStateToProps=(state:any)=>{
-  return({state:state})
+import { register } from '../actions/auth'
+import Container from './reusables/Container';
+const mapStateToProps = (state: any) => {
+  return ({ state: state })
 }
-const mapDispatchToProps=(dispatch:any)=>{
+const mapDispatchToProps = (dispatch: any) => {
 
-  return({
-    onRegister: (event:any)=>{
-      register(dispatch,event);
+  return ({
+    onRegister: (event: any) => {
+      register(dispatch, event);
     }
   })
 }
@@ -24,69 +25,66 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const Register = (props:any) => {
-  const [state,setState]:any = React.useState({submit:false, edit:false})
-  const onFinish = (values:any) => {
+const Register = (props: any) => {
+  const [state, setState]: any = React.useState({ submit: false, edit: false })
+  const onFinish = (values: any) => {
 
-setState({...values, submit:true});
-  
-};
-
-  const onFinishFailed = (errorInfo:any) => {
+    setState({ ...values, submit: true });
 
   };
 
-  return ( <div>
+  const onFinishFailed = (errorInfo: any) => {
+
+  };
+
+  return (<div>
     <Helmet>
-                <meta charSet="utf-8" />
-        <title>Make a new account</title>
-               <meta name="description" content='Make a new covidHelp account'></meta>
-               <meta name="keywords" content="make new covid help covidhelp account"></meta>
-            </Helmet>
-   <div className='landing-top'>
-      
-      <div className='login-title'> <h1>Register!</h1> </div>
-   </div>
-      <div className='landing-description'>
-         <div className='login-form'>
-    <Form
-      {...layout}
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
->
-  <Form.Item label="name" name="name" rules={[{ required: true, message:'Please Enter Your Name'}]}><Input /></Form.Item>
-      <Form.Item
-        label="email"
-        name="email"
-        rules={[{ required: true, type:'email', message: 'Please type a correct email!' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item label="image" name="image"> 
-      <AvatarSelector onRegister={props.onRegister} state={state} ></AvatarSelector></Form.Item>
+      <meta charSet="utf-8" />
+      <title>Make a new account</title>
+      <meta name="description" content='Make a new covidHelp account'></meta>
+      <meta name="keywords" content="make new covid help covidhelp account"></meta>
+    </Helmet>
+    <Container> Sign up</Container>
+    <div className='landing-description'>
+      <div className='login-form'>
+        <Form
+          {...layout}
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item label="name" name="name" rules={[{ required: true, message: 'Please Enter Your Name' }]}><Input /></Form.Item>
+          <Form.Item
+            label="email"
+            name="email"
+            rules={[{ required: true, type: 'email', message: 'Please type a correct email!' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item label="image" name="image">
+            <AvatarSelector onRegister={props.onRegister} state={state} ></AvatarSelector></Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password />
-      </Form.Item>
-      
-<div className='form-button'>
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" block>
-          Submit
-        </Button>
-      </Form.Item>
-      </div>
-    </Form></div></div> </div>
+          <div className='form-button'>
+            <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit" block>
+                Submit
+              </Button>
+            </Form.Item>
+          </div>
+        </Form></div></div> </div>
   );
 };
-export default connect(mapStateToProps,mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
