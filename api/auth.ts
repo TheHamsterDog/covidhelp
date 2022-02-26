@@ -62,55 +62,50 @@ router.get('/', auth, async (req: any, res: any) => {
 })
 router.get('/confirmation/:t', async function (req, res) {
 
-
+  console.log("route hit")
   console.log(req.params.t);
+  try {
+    const token = await Token.findOne({ token: req.params.t });
+    if (!token) return res.status(400).json({ msg: 'We were unable to find a valid token. Your token may have expired.' });
+    const user = await User.findById(token.user);
+    // if (user.isVerified) return res.status(400).send msg: 'This user has already been verified.' });
+    user.isVerified = true;
+    await user.save()
+  }
+  catch (e) {
+    return res.redirect('http://localhost:3000/');
+  }
 
-  Token.findOne({ token: req.params.t }, function (err, token) {
-    console.log(req.params.t);
-    console.log(token);
-    if (!token) return res.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token may have expired.' });
+  return res.redirect('http://localhost:3000/');
 
-    // If we found a token, find a matching user
-    User.findOne({ _id: token.user }, function (err, user) {
-      if (!user) return res.status(400).send({ msg: 'We were unable to find a user for this token.' });
-      if (user.isVerified) return res.status(400).send({ type: 'already-verified', msg: 'This user has already been verified.' });
 
-      // Verify and save the user
-      user.isVerified = true;
-      user.save(function (err) {
-        if (err) { return res.status(500).send({ msg: err.message }); }
-        const payload = {
-          user: {
-            id: user.id
-          }
-        }
-        res.redirect('http://localhost:3000/');
-      });
-    });
-  });
 });
 router.get('/resend/:id', async (req: any, res: any) => {
   try {
     const id = req.params.id;
     console.log('resend requested');
     console.log(id);
-
-    const token = await Token.findOne({ user: id });
-    console.log(token);
-
     const user = await User.findById(id);
+    console.log(user)
+    let token = await Token.findOne({ user: user._id });
+
+    if (!user.isVerified && !token) {
+      token = new Token(({ token: md5(uniqid() + user.email + randomstring.generate()), user: user._id }));
+      await token.save();
+    }
     var transporter = nodemailer.createTransport(sendGrid({ apiKey: process.env.sendgrid }));
     var mailOptions = { from: 'personal@shreshthverma.me', to: user.email, subject: 'Account Verification Token', html: emailVerification(token.token) };
     const mail = await transporter.sendMail(mailOptions);
     return res.json({ msg: 'Email has been resent' })
   }
-  catch {
+  catch (e) {
+    console.log(e)
     return res.status(500).json({ msg: 'Token Not Found' });
   }
 })
 router.post('/forgotpassword/', [check('email', 'please specify your email account')], async (req, res) => {
   const errors = validationResult(req);
-
+  console.log("route hit")
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });

@@ -1,7 +1,23 @@
-.button{
-    
+.btn {
+    outline: none;
+    border: none;
+    padding: 2rem;
+    width: 80%;
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.04);
+    }
+    transition: all 0.2s;
+    display: block;
+    border-radius: 2rem;
+    max-width: 20rem;
+    color: $colorPrimaryBackground;
+    font-size: 2rem;
+    background-color: $colorPrimary !important;
 }
+
 .input {
+
     // background-color: $colorSecondaryBackground;
     // max-width: 70rem;
     // width: 80vw;
@@ -15,23 +31,27 @@
         font-size: 5rem;
         text-align: center;
     }
+
     &-placeholder {
         top: -3rem;
         color: rgba($colorSecondary, 0.8);
-        left:1rem;
-        transition:0.4s;
+        left: 1rem;
+        transition: 0.4s;
         opacity: 0;
         font-size: 1.7rem;
         position: absolute;
     }
+
     position: relative;
     background-color: #fff;
     width:90%;
     margin: 6rem auto;
     border-radius: 2rem;
-    input:not(:placeholder-shown) ~ &-placeholder{
+
+    input:not(:placeholder-shown)~&-placeholder {
         opacity: 1;
     }
+
     input {
         &::placeholder {
             color: rgba($colorSecondary, 0.8);

@@ -9,9 +9,9 @@ class Button extends React.Component<any, any> {
         }
     }
     render() {
-        return (<Button className="button">
-            {this.props.checked}
-        </Button>
+        return (<button className="btn">
+            {this.props.children}
+        </button>
         )
     }
 }

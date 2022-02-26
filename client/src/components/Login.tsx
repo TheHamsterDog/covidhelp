@@ -20,7 +20,7 @@ const Login = (props: any) => {
 
   })
   const onFinish = (e: any) => {
-
+    e.preventDefault();
     props.onLogin(state)
   };
   const onChange = (e: any) => {
@@ -46,10 +46,12 @@ const Login = (props: any) => {
       <div className="auth-checkbox">
 
         <label htmlFor="checkbox"><p className="auth-checkbox-label">Remember me</p></label>
-        <input id="checkbox" className="auth-checkbox-input" name="remember" type="checkbox" value={state.remember} onChange={onChange} />
+        <input id="checkbox" checked={state.remember} className="auth-checkbox-input" name="remember" type="checkbox" value={state.remember} onChange={onChange} />
       </div>
-      <Button>Login</Button>
-      <Link to='/forgot-password'>ForgotPassword?</Link>
+
+      <div className="auth-btn">      <Button htmlType="submit">Login</Button></div>
+      <div className="auth-btn">
+        <Link className="auth-forgot" to='/forgot-password'>Forgot Password?</Link></div>
     </form>
   </div>
 

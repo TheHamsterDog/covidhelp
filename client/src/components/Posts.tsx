@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Helmet } from "react-helmet";
 import { Input } from 'antd';
 import { Col, Row } from 'react-grid-system';
-const { Search } = Input;
+import Search from './reusables/Search';
 const { Meta } = Card;
 
 const Posts = (props: any): JSX.Element => {
@@ -84,14 +84,7 @@ const Posts = (props: any): JSX.Element => {
 
 
                 <div className='login-title'> <h1>Latest Posts</h1>
-                    <Search
-                        style={{ margin: '0% 20%', width: '50%' }}
-                        placeholder="Search for a specific Post"
-                        enterButton="Search"
-                        size="large"
-
-                        onSearch={(value: any) => window.location.href = '/search/' + value}
-                    />
+                    <Search/>
                 </div>
             </div>
             <div className='posts' style={{ textAlign: 'center', marginTop: '5%', marginLeft: '10%', marginRight: '10%' }}>

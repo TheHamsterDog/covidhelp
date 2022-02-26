@@ -2,7 +2,28 @@
     width: 100%;
     margin: 0 auto;
 
+    &-forgot {
+        font-weight: 300;
+        font-size: 1.5rem;
+        &:hover{
+            color:$colorPrimary;
+            transform:scale(1.03)
+        }
+        transition: all 0.2s;
+        color: $colorPrimary;
+    }
+
+    &-btn {
+        display: flex;
+        justify-content: flex-start;
+
+        width: 90%;
+        margin: 3rem auto 6rem;
+        border-radius: 2rem;
+    }
+
     &-checkbox {
+        cursor: pointer;
         height: 1rem;
         display: flex;
         align-items: center;
@@ -10,6 +31,7 @@
 
         &-label {
             margin: 0;
+            cursor: pointer;
             margin-right: 1rem;
             // height:
             color: $colorPrimary;
@@ -17,6 +39,7 @@
         }
 
         &-input {
+            cursor: pointer;
             width: 2rem;
             height: 2rem;
             // height:4rem;

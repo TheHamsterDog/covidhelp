@@ -1,93 +1,75 @@
-import { Form, Input, Button, Checkbox } from 'antd';
-import React from 'react';
-import Navbar from './reusables/Navbar'
-import {connect, Provider} from 'react-redux';
-import AvatarSelector from './AvatarSelector';
-import {register} from '../actions/auth'
-import { Helmet } from 'react-helmet';
-const mapStateToProps=(state:any)=>{
-  return({state:state})
-}
-const mapDispatchToProps=(dispatch:any)=>{
+import { Form, Checkbox } from 'antd';
 
-  return({
-    onRegister: (event:any)=>{
-      register(dispatch,event);
+import React from 'react';
+import Input from './reusables/Input';
+import Button from './reusables/Button';
+import Navbar from './reusables/Navbar'
+import { connect, Provider } from 'react-redux';
+import Container from './reusables/Container';
+import AvatarSelector from './AvatarSelector';
+import { register } from '../actions/auth'
+import { Helmet } from 'react-helmet';
+const mapStateToProps = (state: any) => {
+  return ({ state: state })
+}
+const mapDispatchToProps = (dispatch: any) => {
+
+  return ({
+    onRegister: (event: any) => {
+      register(dispatch, event);
     }
   })
 }
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
 
-const Register = (props:any) => {
+
+const Register = (props: any) => {
+  // console.log();
   console.log(props.state.user.user.image[0][0]);
   
-  const [state,setState]:any = React.useState({submit:false, edit:true, thumbUrl:props.state.user.user.image[0]})
-  const onFinish = (values:any) => {
+  const [state, setState]: any = React.useState({ submit: false, edit: true, thumbUrl: props.state.user.user.image[0], name: props.state.user.user.userName, email: props.state.user.user.email, password: "" })
+  const onFinish = (e:any) => {
+    e.preventDefault();
+    setState((state: any) => ({ ...state, submit: true }));
 
-setState({...values, submit:true});
-  
-};
-
-  const onFinishFailed = (errorInfo:any) => {
+  };
+  const onChange = (e: any) => {
+    console.log(e.target)
+    if (e.target) {
+      let modifications: any = {};
+      modifications[e.target.name] = e.target.value;
+      setState((state: any) => ({ ...state, ...modifications }));
+    }
+  }
+  const onFinishFailed = (errorInfo: any) => {
 
   };
 
-  return ( <div>
-   <div className='landing-top'>
-   <Helmet>
-                <meta charSet="utf-8" />
-                <title>Edit Your Profile</title>
-          
-            </Helmet>
-      
-      <div className='login-title'> <h1>Edit Your Profile!</h1> </div>
-   </div>
-      <div className='landing-description'>
-         <div className='login-form'>
-    <Form
-      {...layout}
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
->
-  <Form.Item label="name" name="name" rules={[{ required: true}]}><Input /></Form.Item>
-      <Form.Item
-        label="email"
-        name="email"
-        rules={[{ required: true, type:'email', message: 'Please type a correct email!' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item label="image" name="image"> 
-      <AvatarSelector onRegister={props.onRegister} state={state} ></AvatarSelector></Form.Item>
+  return (<div className="auth">
 
-      <Form.Item
-        label="Password"
-        name="password" 
-       
-      >
-        <Input.Password placeholder="If you leave this field empty, your password will not be changed" />
-      </Form.Item>
-      
-<div className='form-button'>
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Edit Your Profile</title>
 
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" block>
+    </Helmet>
+
+    <Container>Edit Profile</Container>
+
+
+    <form
+      className='auth-form'
+      onSubmit={onFinish}
+    >
+      <Input placeholder="Name" type="text" name="name" value={state.name} onChange={onChange} />
+      <Input placeholder="Email" type="email" name="email" value={state.email} onChange={onChange} />
+      <AvatarSelector onRegister={props.onRegister} state={state} ></AvatarSelector>
+   
+      <div className="auth-btn">
+        <Button>
           Submit
         </Button>
-      </Form.Item>
       </div>
-    </Form></div></div> </div>
+
+    </form></div >
   );
 };
-export default connect(mapStateToProps,mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

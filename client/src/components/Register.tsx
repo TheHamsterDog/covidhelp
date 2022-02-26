@@ -1,4 +1,4 @@
-import { Form, Input, Button, Checkbox } from 'antd';
+import Input from './reusables/Input'
 import React from 'react';
 import Navbar from './reusables/Navbar'
 import { Helmet } from 'react-helmet';
@@ -6,6 +6,7 @@ import { connect, Provider } from 'react-redux';
 import AvatarSelector from './AvatarSelector';
 import { register } from '../actions/auth'
 import Container from './reusables/Container';
+import Button from './reusables/Button';
 const mapStateToProps = (state: any) => {
   return ({ state: state })
 }
@@ -26,16 +27,22 @@ const tailLayout = {
 };
 
 const Register = (props: any) => {
-  const [state, setState]: any = React.useState({ submit: false, edit: false })
-  const onFinish = (values: any) => {
-
-    setState({ ...values, submit: true });
-
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
+  const [state, setState]: any = React.useState({ submit: false, name: "", email: "", password: "", remember: true, edit:false })
+  const onFinish = (e: any) => {
+    e.preventDefault();
+    setState((state: any) => ({ ...state, submit: true }));
 
   };
+  const onChange = (e: any) => {
+    console.log(e.target)
+    if (e.target) {
+      let modifications: any = {};
+      modifications[e.target.name] = e.target.value;
+      setState((state: any) => ({ ...state, ...modifications }));
+    }
+  }
+
+
 
   return (<div>
     <Helmet>
@@ -45,46 +52,26 @@ const Register = (props: any) => {
       <meta name="keywords" content="make new covid help covidhelp account"></meta>
     </Helmet>
     <Container> Sign up</Container>
-    <div className='landing-description'>
-      <div className='login-form'>
-        <Form
-          {...layout}
-          name="basic"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-        >
-          <Form.Item label="name" name="name" rules={[{ required: true, message: 'Please Enter Your Name' }]}><Input /></Form.Item>
-          <Form.Item
-            label="email"
-            name="email"
-            rules={[{ required: true, type: 'email', message: 'Please type a correct email!' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label="image" name="image">
-            <AvatarSelector onRegister={props.onRegister} state={state} ></AvatarSelector></Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password />
-          </Form.Item>
+    <div className="auth" >
+      <form
+        className='auth-form'
+        onSubmit={onFinish}
+      >
+        <Input placeholder="Name" type="text" name="name" value={state.name} onChange={onChange} />
 
-          <div className='form-button'>
-            <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+        <Input placeholder="Email" type="email" name="email" value={state.email} onChange={onChange} />
+        <AvatarSelector onRegister={props.onRegister} state={state} ></AvatarSelector>
+        <Input placeholder="Password" type="Password" name="password" value={state.password} onChange={onChange} />
+        <div className="auth-checkbox">
+          <label htmlFor="checkbox"><p className="auth-checkbox-label">Remember me</p></label>
+          <input id="checkbox" className="auth-checkbox-input" name="remember" type="checkbox" checked={state.remember} onChange={onChange} />
+        </div>
+        <div className="auth-btn">
+          <Button htmlType="submit">Sign Up</Button>
+        </div>
 
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit" block>
-                Submit
-              </Button>
-            </Form.Item>
-          </div>
-        </Form></div></div> </div>
+      </form></div></div>
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Register)

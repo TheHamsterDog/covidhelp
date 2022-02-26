@@ -68,7 +68,7 @@ router.post('/', [check('username', "name is required").not().isEmpty(), check('
     }
   }
 })
-router.put('/', [auth, check('username', "name is required").not().isEmpty(), check('email', "please enter a valid Email").isEmail(), check('password', "please enter a password with atleast 6 characters").isLength({ min: 6 })], async (req: any, res: any) => {
+router.put('/', [auth, check('username', "name is required").not().isEmpty(), check('email', "please enter a valid Email").isEmail()], async (req: any, res: any) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -89,26 +89,24 @@ router.put('/', [auth, check('username', "name is required").not().isEmpty(), ch
       if (existing) {
         return res.status(400).json({ msg: 'A user already exists with that email' });
       }
+      user.isVerified = false;
+      try {
+        await Verification.findOneAndDelete({ user: user._id });
+        const verifcation = new Verification({ token: md5(uniqid() + user.email + randomstring.generate()), user: user._id });
+        await verifcation.save();
+        var transporter = nodemailer.createTransport(sendGrid({ apiKey: process.env.sendgrid }));
+        var mailOptions = { from: 'personal@shreshthverma.me', to: user.email, subject: 'Account Verification Token', html: emailVerification(verifcation.token) };
+        await transporter.sendMail(mailOptions);
+      }
+      catch (e) {
+        console.log(e);
+      }
     }
     user.email = req.body.email;
-    user.isVerified = false;
-    try {
-      await Verification.findOneAndDelete({ user: user._id });
-    }
-    catch (e) {
-    }
-    const verifcation = new Verification({ token: md5(uniqid() + user.email + randomstring.generate()), user: user._id });
-    await verifcation.save();
-    var transporter = nodemailer.createTransport(sendGrid({ apiKey: process.env.sendgrid }));
-    var mailOptions = { from: 'personal@shreshthverma.me', to: user.email, subject: 'Account Verification Token', html: emailVerification(verifcation.token) };
-    await transporter.sendMail(mailOptions);
     user.userName = req.body.username;
     user.image = req.body.image;
     await user.save()
-    const token = jwt.sign({
-      expiresIn: 60 * 60 * 24 * 30,
-      data: user.id
-    },  process.env.jwt);
+
     return res.json({ msg: 'User Data Updated, please re-verify your account by clicking on the link sent to your email account' })
   }
   catch (e) {
