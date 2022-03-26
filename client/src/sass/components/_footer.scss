@@ -1,0 +1,45 @@
+.footer {
+    background-color: $colorSecondaryBackground;
+    padding: 3rem;
+
+    &-links {
+        width: 90%;
+        display: flex;
+        margin: 1rem auto 4rem;
+        justify-content: space-between;
+        max-width: 30rem;
+
+        &-each {
+            &-icon {
+                &:hover{
+                    transform:scale(1.05) !important;
+                }
+                transition: all 0.2s !important;
+                font-size: 3rem !important;
+                color:$colorSecondary;
+            }
+        }
+    }
+
+    &-copyright {
+        width: 90%;
+        display: flex;
+        margin: 1rem auto;
+        justify-content: space-between;
+        max-width: 17rem;
+        align-items: center;
+
+
+        &-icon {
+            margin:0;
+            font-size: 2rem !important;
+
+        }
+
+        &-text {
+            color:$colorSecondary;
+            // align-self: flex-end !important;
+            font-size: 1.4rem;
+        }
+    }
+}

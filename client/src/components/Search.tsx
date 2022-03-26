@@ -6,6 +6,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import F04 from './404';
 import { Helmet } from 'react-helmet';
+
+import SubPost from './reusables/subPost';
 import { Input } from 'antd';
 
 import Search from './reusables/Search'
@@ -86,54 +88,41 @@ const S = (props: any): JSX.Element => {
                     <meta name="description" content={search}></meta>
                     <meta name="keywords" content={search}></meta>
                 </Helmet>
-                <Search />
-                <div style={{ backgroundColor: '#B6AE17', paddingTop: '6%', paddingBottom: '6%', textAlign: 'center' }}>
+                <Search default={search} />
 
-                    <div className='posts' style={{ textAlign: 'center', marginTop: '5%', marginLeft: '10%', marginRight: '10%' }}>
-
-                        <Row>
-                            <InfiniteScroll
-                                dataLength={state.posts.length} //This is important field to render the next data
-                                next={() => onScroll()}
-                                hasMore={state.keepLoading}
-                                loader={<div style={{ marginTop: '10%', marginBottom: '10%', marginRight: '40%' }}><CircularProgress /></div>}
-                                endMessage={
-                                    <p style={{ textAlign: 'center', marginRight: '50%' }}>
-                                        <b>You have seen all of the posts that match your criterion</b>
-                                    </p>
-                                }
-                                // below props only if you need pull down functionality
-                                refreshFunction={() => { setState({ keepLoading: true, posts: [], initialLoad: false }) }}
-                                pullDownToRefresh
-                                pullDownToRefreshThreshold={50}
-                                pullDownToRefreshContent={
-                                    <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
-                                }
-                                releaseToRefreshContent={
-                                    <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-                                }
-                            >
-                                {state.posts.map((post: any) => {
-
-                                    const link = '/posts/' + post._id;
-                                    return (<Col key={post._id} sm={1} md={2} lg={4}>
-                                        <div key={post._id}><Link to={link} ><div><Card hoverable style={{ width: '100%' }} cover={<img style={{ height: '300px' }} src={post.images[0]}></img>}>
-                                            <Meta title={post.title} description={post.description} />
-                                        </Card>
-                                            <br /></div></Link><br /></div></Col>
-                                    )
-                                })
+                <InfiniteScroll
+                    dataLength={state.posts.length}
+                    next={() => onScroll()}
+                    hasMore={state.keepLoading}
+                    loader={<div style={{ marginTop: '10%', marginBottom: '10%', marginRight: '40%' }}><CircularProgress /></div>}
 
 
+                    refreshFunction={() => { setState({ keepLoading: true, posts: [], initialLoad: false }) }}
+                    pullDownToRefresh
+                    pullDownToRefreshThreshold={50}
+                    pullDownToRefreshContent={
+                        <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+                    }
+                    releaseToRefreshContent={
+                        <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+                    }
+                ><div className='posts'>
+                        <h1 className='posts-title'>
+                            Posts that matched your search "{search}"
+                        </h1>
+                        <div className='posts-container'>
+                            {state.posts.map((post: any) => {
+                                return (<SubPost img={post.images[0]} _id={post._id} title={post.title} description={post.description} user={post.user} />)
+                            })}
+                        </div>
 
+                    </div>
+                </InfiniteScroll>
 
-                                }
-                            </InfiniteScroll>   </Row></div>
-                    {/* {state.keepLoading ? <div ref={paneDidMount} className='end' style={{ margin: '10% 0%' }} onWheel={() => {
+                {/* {state.keepLoading ? <div ref={paneDidMount} className='end' style={{ margin: '10% 0%' }} onWheel={() => {
                     console.log('hey');
                 }
                 } onScroll={() => console.log('scrolled')}><CircularProgress /></div> : null} */}
-                </div>
             </div>
             )
 

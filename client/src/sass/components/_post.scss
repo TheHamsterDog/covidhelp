@@ -1,0 +1,170 @@
+.post {
+    margin: 0 auto;
+    width: 80%;
+
+    max-width: 90rem;
+
+    &-author {
+
+        padding: 3rem;
+        background-color: $colorSecondaryBackground;
+        height: 25rem;
+        border-radius: 2.5rem;
+
+        &-author {
+            background-color: $colorPrimary;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 1.5rem;
+
+            &-image {
+                // width: 100%;
+                width: 5rem;
+                border-radius: 100%;
+            }
+
+            &-name {
+                color: $colorPrimaryBackground;
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    &-container {
+        &-left {
+            &-container {
+                text-align:left;
+                padding: 3rem;
+                background-color: $colorSecondaryBackground;
+                border-radius: 2rem;
+                &-title{
+                    font-size: 3rem;
+                }
+                &-description{
+                    // line-height: 1.6rem;
+                    color:$colorSecondary;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
+        display: grid;
+        grid-column-gap: 10rem;
+        // grid-template-rows: auto auto; 
+        grid-template-columns: 2fr 1.2fr;
+    }
+}
+
+.posts {
+    position: relative;
+
+    &-title {
+        // left: 5rem;
+        // top: 2srem;
+        margin-bottom: 5rem;
+        border-bottom: .3rem solid #fff;
+        padding: 1rem;
+        font-size: 2.5rem;
+
+        // position: absolute;
+    }
+
+    &-container {
+        display: grid;
+        grid-row-gap: 5rem;
+        grid-column-gap: 5rem;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    max-width: 70rem;
+    width: 80%;
+    border-radius: 2rem;
+    padding: 1rem 5rem 5rem;
+    margin: 2rem auto 10rem;
+    background-color: $colorSecondaryBackground;
+    // margin: 2rem auto;
+
+}
+
+.sub {
+    &-post {
+        &:hover {
+
+            transform: scale(1.02);
+        }
+
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        // overflow: hidden;
+
+        &-post {
+            top: 35%;
+            left: 0%;
+            height: 45%;
+            width: 100%;
+            padding: 1rem;
+            background-color: #00000095;
+            position: absolute;
+            text-align: left;
+
+            // border-top-right-radius: 3rem;
+            // border-top-left-radius: 3rem;
+
+            &-title {
+                color: $colorSecondaryBackground;
+                font-size: 2rem;
+                font-weight: 700;
+            }
+
+            &-description {
+                font-weight: 500;
+                font-size: 1.5rem;
+
+                color: $colorPrimaryBackground;
+            }
+        }
+
+        &-user {
+            border-bottom-right-radius: 3rem;
+            border-bottom-left-radius: 3rem;
+            background-color: rgba($colorPrimary, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            position: absolute;
+            width: 100%;
+            bottom: 0%;
+
+            &-name {
+
+                margin: 0;
+                font-size: 1.6rem;
+                color: $colorPrimaryBackground;
+            }
+
+            &-img {
+                width: 4rem;
+                height: 4rem;
+                border-radius: 100%;
+            }
+        }
+
+        height: 30rem;
+        width: 25rem;
+        border-radius: 3rem;
+
+        &-image {
+            border-radius: 3rem;
+            object-fit: cover;
+
+            height: 30rem;
+            width: 25rem;
+        }
+
+        // width: 30%;
+    }
+}

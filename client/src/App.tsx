@@ -10,6 +10,7 @@ import { loadUser } from './actions/auth';
 import { setAlert } from './actions/alert';
 import Post from './components/Post'
 import Redirecter from './components/Redirecter'
+import Footer from './components/reusables/Footer';
 import Alert from './components/Alert';
 import Profile from './components/profile';
 import Posts from './components/Posts';
@@ -71,12 +72,7 @@ function App(props: any) {
           <Route><F04></F04></Route>
         </Switch>
 
-        <div className="bottom-container">
-          <a className="footer-link" href="https://www.linkedin.com/in/shreshth-verma-17ab39213/">LinkedIn</a>
-          <a className="footer-link" href="https://twitter.com/VermaShreshth">Twitter</a>
-          <a className="footer-link" href="https://www.shreshthverma.me/">Website</a>
-          <p>© 2020 Shreshth Verma.</p>
-        </div>
+        <Footer />
       </Router>
     </div>)
   }
@@ -95,7 +91,7 @@ function App(props: any) {
           : null
         }
         <Router>
-          <NavBar state={props.state}></NavBar>
+          <NavBar />
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/login"> <Login setAlert={props.setAlert}></Login></Route>
@@ -110,12 +106,7 @@ function App(props: any) {
             <Route exact path='/reset/:id'><Reset /></Route>
             <Route><F04></F04></Route>
           </Switch>
-          <div className="bottom-container">
-            <a className="footer-link" href="https://www.linkedin.com/in/shreshth-verma-17ab39213/">LinkedIn</a>
-            <a className="footer-link" href="https://twitter.com/VermaShreshth">Twitter</a>
-            <a className="footer-link" href="https://www.shreshthverma.me/">Website</a>
-            <p>© 2020 Shreshth Verma.</p>
-          </div>
+          <Footer/>
         </Router>
       </div>
     );

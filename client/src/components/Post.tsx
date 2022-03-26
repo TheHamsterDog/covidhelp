@@ -1,24 +1,14 @@
-import { Form, Input, Button, Checkbox } from 'antd';
+import Input from './reusables/Input'
+import Button from './reusables/Button';
 import React from 'react';
-import Navbar from './reusables/Navbar'
 import { connect, Provider } from 'react-redux';
 import { login } from '../actions/auth'
-import { Upload, Modal } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import pictureWall from './pictureWall'
+import Container from './reusables/Container';
 import PicturesWall from './pictureWall';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-function getBase64(file: any) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
 const mapStateToProps = (state: any) => {
   return ({ state: state })
 }
@@ -30,84 +20,44 @@ const mapDispatchToProps = (dispatch: any) => {
     }
   })
 }
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
 
 const Login = (props: any) => {
-
-
-
   const [state, setState]: any = React.useState({
-    post: {}, submit: false
+    post: { paypal: "", description: "", title: "" }, submit: false,
   })
+  const onChange = (e: any) => {
+    console.log(e.target)
+    if (e.target) {
+      let modifications: any = {};
+      modifications[e.target.name] = e.target.value;
+      setState((state: any) => ({ ...state, post: { ...state.post, ...modifications } }));
+    }
+  }
   if (props.state.user.user.isVerified) {
-    const onFinish = (values: any) => {
-      setState({ post: values, submit: true })
+    const onFinish = (e:any) => {
+      e.preventDefault();
+      setState((state: any) => ({ ...state, submit: true }))
     };
-
-    const onFinishFailed = (errorInfo: any) => {
-
-    };
-
-    return (<div>
-      <div className='landing-top'>
-
-        <div className='login-title'> <h1>Create a Post!</h1> </div>
-      </div>
+    return (<div className="auth">
+      <Container>CREATE POST</Container>
       <Helmet>
-                <meta charSet="utf-8" />
+        <meta charSet="utf-8" />
         <title>Post a new submission</title>
-             
-            </Helmet>
-      <div className='landing-description'>
-        <div className='login-form'>
-          <Form
-            {...layout}
-            name="basic"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-          >
-            <Form.Item
-              label="title"
-              name="title"
-              rules={[{ required: true, message: 'Please input your title!' }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="description"
-              name="description"
-              rules={[{ required: true, message: 'Please input your description!' }]}
-            >
-              <Input.TextArea />
-            </Form.Item>
-            <Form.Item
-              label="paypal.me"
-              name="paypal"
-              rules={[{ required: true, message: 'Please input your paypal.me link!', type: 'url' }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="image"
-            >
-              <PicturesWall state={state} setState={setState}></PicturesWall>
-            </Form.Item>
-            <div className='form-button'>
+      </Helmet>
+      <form className="auth-form" onSubmit={onFinish}>
 
-              <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit" block>
-                  Submit
-        </Button>
-              </Form.Item>
-            </div>
-          </Form></div></div>  </div>
+        <Input placeholder="title" type="text" name="title" value={state.post.title} onChange={onChange} />
+
+        <Input placeholder="description" type="text" name="description" value={state.post.description} onChange={onChange} />
+        <Input placeholder="Donation Link" type="text" name="paypal" value={state.post.paypal} onChange={onChange} />
+
+        <PicturesWall state={state} setState={setState}></PicturesWall>
+        <div className='auth-btn'>
+          <Button type="primary" htmlType="submit" block>
+            Submit
+          </Button>
+        </div>
+      </form></div>
     )
   }
   else {

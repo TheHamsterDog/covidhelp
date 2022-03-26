@@ -8,8 +8,9 @@ import { Helmet } from "react-helmet";
 import { Input } from 'antd';
 import { Col, Row } from 'react-grid-system';
 import Search from './reusables/Search';
-const { Meta } = Card;
 
+import SubPost from './reusables/subPost';
+const { Meta } = Card;
 const Posts = (props: any): JSX.Element => {
     let loadingRef: any = React.createRef();
 
@@ -80,52 +81,41 @@ const Posts = (props: any): JSX.Element => {
                 <meta name="description" content='Latest CovidHelp Posts'></meta>
                 <meta name="keywords" content="covid 19 help people posts covidhelp donation donate charity"></meta>
             </Helmet>
-            <div className='landing-top'>
+
+            <Search />
 
 
-                <div className='login-title'> <h1>Latest Posts</h1>
-                    <Search/>
-                </div>
-            </div>
-            <div className='posts' style={{ textAlign: 'center', marginTop: '5%', marginLeft: '10%', marginRight: '10%' }}>
-                <div className='col-container'>
-                    <InfiniteScroll
-                        dataLength={state.posts.length}
-                        next={() => onScroll()}
-                        hasMore={state.keepLoading}
-                        loader={<div style={{ marginTop: '10%', marginBottom: '10%', marginRight: '40%' }}><CircularProgress /></div>}
-                        endMessage={
-                            <p style={{ textAlign: 'center', marginRight: '' }}>
-                                <b>You have seen all the posts on this site!</b>
-                            </p>
-                        }
 
-                        refreshFunction={() => { setState({ keepLoading: true, posts: [], initialLoad: false }) }}
-                        pullDownToRefresh
-                        pullDownToRefreshThreshold={50}
-                        pullDownToRefreshContent={
-                            <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
-                        }
-                        releaseToRefreshContent={
-                            <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-                        }
-                    >
+            <InfiniteScroll
+                dataLength={state.posts.length}
+                next={() => onScroll()}
+                hasMore={state.keepLoading}
+                loader={<div style={{ marginTop: '10%', marginBottom: '10%', marginRight: '40%' }}><CircularProgress /></div>}
+
+
+                refreshFunction={() => { setState({ keepLoading: true, posts: [], initialLoad: false }) }}
+                pullDownToRefresh
+                pullDownToRefreshThreshold={50}
+                pullDownToRefreshContent={
+                    <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+                }
+                releaseToRefreshContent={
+                    <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+                }
+            ><div className='posts'>
+                    <h1 className='posts-title'>
+                        Recent Posts
+                    </h1>
+                    <div className='posts-container'>
                         {state.posts.map((post: any) => {
+                            return (<SubPost img={post.images[0]} _id={post._id} title={post.title} description={post.description} user={post.user} />)
+                        })}
+                    </div>
 
-                            const link = '/posts/' + post._id;
-                            return (<div key={post._id} className="col"><div key={post._id}><Link to={link} ><div><Card hoverable style={{ width: '100%' }} cover={<img style={{ height: '300px' }} src={post.images[0]}></img>}>
-                                <Meta title={post.title} description={post.description} />
-                            </Card>
-                                <br /></div></Link><br /></div> </div>)
-                        })
-
-
-
-
-                        }
-                    </InfiniteScroll>
                 </div>
-            </div>
+            </InfiniteScroll>
+
+
             {/* {state.keepLoading ? <div ref={paneDidMount} className='end' style={{ margin: '10% 0%' }} onWheel={() => {
                     console.log('hey');
                 }

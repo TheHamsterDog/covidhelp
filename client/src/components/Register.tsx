@@ -18,14 +18,6 @@ const mapDispatchToProps = (dispatch: any) => {
     }
   })
 }
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
-
 const Register = (props: any) => {
   const [state, setState]: any = React.useState({ submit: false, name: "", email: "", password: "", remember: true, edit:false })
   const onFinish = (e: any) => {

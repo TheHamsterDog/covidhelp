@@ -1,11 +1,13 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom'
-import { Button } from 'antd';
+import Button from './reusables/Button';
 import axios from 'axios'
+
+import SubPost from './reusables/subPost';
 import { Card } from 'antd';
 
-
+import Container from './reusables/Container';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { Helmet } from 'react-helmet';
@@ -42,48 +44,34 @@ export default (props: any) => {
 
     console.log(Posts);
     return (
-        <div className='profile' style={{ textAlign: 'center' }}>
-            <div style={{ backgroundColor: '#9CEC88', paddingTop: '3%', paddingBottom: '2%' }}>
-                <img src={icon} style={{ borderRadius: '100%', width: '20%', height: '20%', display: 'inline-block', marginBottom: '2%' }} ></img>
-                <div className='name' style={{ display: 'block' }}><h1>{props.state.user.user.userName}</h1></div>
-            </div>
+        <div className="profile">
+            <Container className="profile-header" textClassName="profile-header-inner">
+                <img className="profile-header-image" src={icon}></img>
+                <h1 className="profile-header-name">{props.state.user.user.userName}</h1>
+            </Container>
+
             <Helmet>
                 <meta charSet="utf-8" />
-        <title>My Profile</title>
+                <title>My Profile</title>
             </Helmet>
-            <div style={{ backgroundColor: '#00B880', paddingTop: '3%', paddingBottom: '3%', textAlign: 'center' }}>
-                <h1>
-                    My Posts
-</h1>
-                <br />
-                <br />
-                {Posts ? <div>{Posts.map((post: any) => {
-                    const link = 'posts/' + post._id;
-                    return (
-                        <div style={{ marginLeft: '37%', marginRight: '10%' }} >
-                            <Link to={link}>
-                                <Card hoverable cover={<img src={post.images[0]}></img>} style={{ width: '50%' }} ><Meta title={post.title} description={post.description}></Meta></Card>
-                            </Link>
-                            {/* <Carousel width='100%' >
-                                {post.images.map((image: any) => {
-                                    return (<div style={{ height: '400px' }}>
-                                        <img height='100%' width='100%' src={image}></img>
-                                        <p className="legend">{post.title}</p>
-                                        <br /><br /><br /></div>)
-                                })}
-                            </Carousel> */}
-                            <br></br>
-                        </div>
-                    )
-                })}</div> : <h2 style={{ fontSize: '100%' }}>You haven't made any posts yet</h2>}
-            </div>
-            <div style={{ backgroundColor: '#B6AE17', paddingTop: '5%', paddingBottom: '5%', textAlign: 'center' }}>
-                <Button type="primary" size='large' >
-                    <Link to='/post'>Make a New Post</Link>
-                </Button>
-            </div>
-        </div>
 
-    )
+
+            {Posts ? <div className='posts'>
+                <h1 className='posts-title'>
+                    Your Posts
+                </h1>
+                <div className='posts-container'>
+                    {Posts.map((post: any) => {
+                        const link = 'posts/' + post._id;
+                        return (<SubPost img={post.images[0]} _id={post._id} title={post.title} description={post.description} user={post.user} />)
+
+                    })}
+                </div>
+
+            </div> : <h2 style={{ fontSize: '100%' }}>You haven't made any posts yet</h2>}
+         
+
+
+        </div>)
 
 }
