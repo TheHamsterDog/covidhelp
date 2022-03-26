@@ -5,10 +5,14 @@
     max-width: 90rem;
 
     &-author {
+        @include respond(phone) {
+            margin-bottom: 5rem;
+
+        }
 
         padding: 3rem;
         background-color: $colorSecondaryBackground;
-        height: 25rem;
+        max-height: 30rem;
         border-radius: 2.5rem;
 
         &-author {
@@ -35,19 +39,27 @@
     &-container {
         &-left {
             &-container {
-                text-align:left;
+                text-align: left;
                 padding: 3rem;
                 background-color: $colorSecondaryBackground;
                 border-radius: 2rem;
-                &-title{
+
+                &-title {
                     font-size: 3rem;
                 }
-                &-description{
+
+                &-description {
                     // line-height: 1.6rem;
-                    color:$colorSecondary;
+                    color: $colorSecondary;
                     font-size: 1.6rem;
                 }
             }
+        }
+
+        @include respond(phone) {
+            // display: block;
+            grid-gap: 5rem;
+            grid-template-columns: 1fr;
         }
 
         display: grid;
@@ -74,6 +86,12 @@
     &-container {
         display: grid;
         grid-row-gap: 5rem;
+
+        @include respond(phone) {
+            // display: block;
+            grid-template-columns: 1fr;
+        }
+
         grid-column-gap: 5rem;
         grid-template-columns: 1fr 1fr;
     }

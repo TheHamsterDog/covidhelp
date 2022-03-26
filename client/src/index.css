@@ -6,6 +6,7 @@
 .footer {
   background-color: #ECECEC;
   padding: 3rem;
+  height: 16rem;
 }
 .footer-links {
   width: 90%;
@@ -161,6 +162,11 @@ input:not(:placeholder-shown) ~ .input-placeholder {
   align-items: center;
   flex-direction: row !important;
 }
+@media (max-width: 37.5em) {
+  .profile-header-inner {
+    flex-direction: column !important;
+  }
+}
 .profile-header-image {
   border-radius: 100%;
   width: 15rem;
@@ -168,12 +174,36 @@ input:not(:placeholder-shown) ~ .input-placeholder {
 .profile-header-name {
   font-size: 4rem;
 }
+@media (max-width: 37.5em) {
+  .profile-header-name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 4rem;
+  }
+}
 
 .home {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: calc(100vh - 21rem);
+}
+.home-text {
+  height: calc(100vh - 48rem);
+  margin: 0rem auto 2rem;
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+@media (max-width: 37.5em) {
+  .home-text {
+    width: 75%;
+    height: calc(100vh - 48rem);
+    margin: 0rem auto 2rem;
+    display: flex;
+    align-items: center;
+  }
 }
 
 .post {
@@ -184,8 +214,13 @@ input:not(:placeholder-shown) ~ .input-placeholder {
 .post-author {
   padding: 3rem;
   background-color: #ECECEC;
-  height: 25rem;
+  max-height: 30rem;
   border-radius: 2.5rem;
+}
+@media (max-width: 37.5em) {
+  .post-author {
+    margin-bottom: 5rem;
+  }
 }
 .post-author-author {
   background-color: #000000;
@@ -221,6 +256,12 @@ input:not(:placeholder-shown) ~ .input-placeholder {
   color: #353434;
   font-size: 1.6rem;
 }
+@media (max-width: 37.5em) {
+  .post-container {
+    grid-gap: 5rem;
+    grid-template-columns: 1fr;
+  }
+}
 
 .posts {
   position: relative;
@@ -242,6 +283,11 @@ input:not(:placeholder-shown) ~ .input-placeholder {
   grid-row-gap: 5rem;
   grid-column-gap: 5rem;
   grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 37.5em) {
+  .posts-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .sub-post {

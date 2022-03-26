@@ -33,13 +33,9 @@ class App extends React.Component<Props> {
   render() {
     const { current } = this.state;
     let image: any;
-    if (this.props.state.isLoaded === true) {
-
-
+    if (this.props.state?.isLoaded === true) {
       image = this.props.state.user.user.image[0];
       console.log(image);
-
-
     }
 
 
@@ -59,7 +55,7 @@ class App extends React.Component<Props> {
             posts
           </Menu.Item>
 
-          {this.props.state.isLoaded ? <SubMenu key="SubMenu" className="navbar-options" icon={<img src={image} width="35px" style={{ borderRadius: '100%' }}></img>}>
+          {this.props.state?.isLoaded ? <SubMenu key="SubMenu" className="navbar-options" icon={<img src={image} width="35px" style={{ borderRadius: '100%' }}></img>}>
 
             <Menu.Item className="navbar-options" key="/logout">Log Out</Menu.Item>
             <Menu.Item className="navbar-options" key="/post">Post</Menu.Item>

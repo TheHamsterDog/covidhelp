@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 import Search from './reusables/Search'
 // const { Search } = Input;
 const Home = (props: any) => {
-  return (<div> 
+  return (<div className="home">
     <Helmet>
       <meta charSet="utf-8" />
       <title>CovidHelp</title>
@@ -15,13 +15,17 @@ const Home = (props: any) => {
       <meta name="keywords" content="covid 19 help people posts covidhelp donation donate charity"></meta>
     </Helmet>
     <Search />
-    <div className='landing-description'><h2 >Help people by donating or ask for donations</h2>
-      <br />
-      <Button type="primary" style={{ width: '50%', marginLeft: '0' }} size='large' >
-        <Link to='/post'>Submit a Post</Link>
-      </Button>
+    <div className='home-text'>
+      <div className='home-text-container'>
+        <h2 >Help people by donating or ask for donations</h2>
+        <br />
+        <Button type="primary" style={{ width: '50%', marginLeft: '0' }} size='large' >
+          <Link to='/post'>Submit a Post</Link>
+        </Button>
+      </div>
+
     </div>
-  
+
   </div>)
 }
 export default Home
