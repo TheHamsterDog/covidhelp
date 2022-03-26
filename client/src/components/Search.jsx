@@ -14,13 +14,13 @@ import Search from './reusables/Search'
 import { AudioOutlined } from '@ant-design/icons';
 import { Col, Row } from 'react-grid-system';
 const { Meta } = Card;
-const S = (props: any): JSX.Element => {
-    let loadingRef: any = React.createRef();
-    let { search }: any = useParams();
-    const [state, setState]: any = React.useState({ keepLoading: true, posts: [], initialLoad: false, notFound: false });
-    const RequestForMore: Function = async (from: number) => {
+const S = (props) => {
+    let loadingRef = React.createRef();
+    let { search } = useParams();
+    const [state, setState] = React.useState({ keepLoading: true, posts: [], initialLoad: false, notFound: false });
+    const RequestForMore = async (from) => {
         try {
-            let posts: any = await axios.get('/api/post/search/' + search + '/' + from);
+            let posts = await axios.get('/api/post/search/' + search + '/' + from);
             console.log(posts)
             if (posts.data.msg.length === 0) {
 
@@ -111,7 +111,7 @@ const S = (props: any): JSX.Element => {
                             Posts that matched your search "{search}"
                         </h1>
                         <div className='posts-container'>
-                            {state.posts.map((post: any) => {
+                            {state.posts.map((post) => {
                                 return (<SubPost img={post.images[0]} _id={post._id} title={post.title} description={post.description} user={post.user} />)
                             })}
                         </div>

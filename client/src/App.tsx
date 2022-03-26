@@ -48,7 +48,7 @@ function App(props: any) {
   if (props.state.isLoaded) {
     return (<div className='App'>
       <Router>
-        <NavBar state={props.state}></NavBar>
+        <NavBar></NavBar>
         {props.state.alerts.length > 0 ? props.state.alerts.map((alert: any) => {
           console.log(alert.msg)
           return (<Alert message={alert.msg} type={alert.alertType} key={alert.id} ></Alert>)

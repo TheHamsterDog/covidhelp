@@ -12,14 +12,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { Helmet } from 'react-helmet';
 const { Meta } = Card;
-export default (props: any) => {
+export default (props) => {
     // console.log(props.state.user.user)
     const icon = props.state.user.user.image[0];
     // console.log(icon);
-    const [Posts, setPosts]: any = React.useState([]);
+    const [Posts, setPosts] = React.useState([]);
     const posts = async () => {
         try {
-            const po: any = await axios.get('/api/post')
+            const po = await axios.get('/api/post')
             const p = po
             console.log(p.data)
             setPosts(p.data.msg);
@@ -61,7 +61,7 @@ export default (props: any) => {
                     Your Posts
                 </h1>
                 <div className='posts-container'>
-                    {Posts.map((post: any) => {
+                    {Posts.map((post) => {
                         const link = 'posts/' + post._id;
                         return (<SubPost img={post.images[0]} _id={post._id} title={post.title} description={post.description} user={post.user} />)
 

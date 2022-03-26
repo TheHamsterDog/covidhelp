@@ -1,7 +1,7 @@
 import { AnyMxRecord } from 'dns';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-class Search extends React.Component<any, any> {
+class Search extends React.Component<{textClassName: any, className: any}, any> {
     constructor(props: any) {
         super(props);
         this.state = {

@@ -4,10 +4,15 @@ import { Menu, Slider } from 'antd';
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import { withRouter } from "react-router-dom"
-const { Header, Footer, Sider, Content } = Layout;
+
+import { connect } from 'react-redux';
 const { SubMenu } = Menu;
 type Props = {
   state: any
+}
+
+const mapStateToProps = (state: any) => {
+  return ({ state: state })
 }
 class App extends React.Component<Props> {
   state = {
@@ -73,4 +78,4 @@ class App extends React.Component<Props> {
     );
   }
 }
-export default withRouter(App as any);
+export default connect(mapStateToProps)(withRouter(App as any) as any);

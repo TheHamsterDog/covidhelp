@@ -12,19 +12,19 @@ import { Carousel } from "react-responsive-carousel";
 import Container from './reusables/Container';
 
 import SubPost from './reusables/subPost';
-const Profiles = (props: any) => {
+const Profiles = (props) => {
     // console.log(props.state.user.user)
 
     // console.log(icon);
-    const [state, setState]: any = React.useState({ posts: [], user: {}, load: true, error: false });
-    let { id }: any = useParams();
-    let icon: any;
+    const [state, setState] = React.useState({ posts: [], user: {}, load: true, error: false });
+    let { id } = useParams();
+    let icon;
     const posts = async () => {
 
         try {
 
-            const u: any = await axios.get('/api/user/' + id)
-            const po: any = await axios.get('/api/post/user/' + id)
+            const u = await axios.get('/api/user/' + id)
+            const po = await axios.get('/api/post/user/' + id)
             const p = po
             // console.log(p.data)
             const user = u.data.msg;
@@ -81,7 +81,7 @@ const Profiles = (props: any) => {
                             {state.user.userName + '\'s '} Posts
                         </h1>
                         <div className='posts-container'>
-                            {state.posts.map((post: any) => {
+                            {state.posts.map((post) => {
                                 const link = 'posts/' + post._id;
                                 return (<SubPost img={post.images[0]} _id={post._id} title={post.title} description={post.description} user={post.user} />)
 
